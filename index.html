@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Developer Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- CURSOR -->
+<div id="cursor-outer"></div>
+<div id="cursor-inner"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-ring"></div>
+  <div class="loader-percent" id="loader-percent">0%</div>
+  <div class="loader-text">Welcome To My Gallery</div>
+</div>
+
+<!-- SOUND TOGGLE -->
+<button id="sound-toggle" title="Toggle sound on/off">🔊</button>
+<audio id="bg-audio" src="2020-preview.mp3" preload="auto"></audio>
+
+<!-- NAV WHEEL -->
+<nav id="nav-wheel">
+  <button id="nav-toggle" aria-label="Toggle menu">
+    <svg class="nav-wheel-icon" viewBox="0 0 100 100" width="40" height="40">
+      <!-- Outer rotating ring -->
+      <circle class="outer-ring" cx="50" cy="50" r="45" fill="none" stroke="rgba(40,80,110,0.78)"/>
+      <!-- Middle robotic ring -->
+      <circle class="inner-ring" cx="50" cy="50" r="36" fill="none" stroke="rgba(30,95,125,0.86)" stroke-dasharray="2 6"/>
+      <!-- Static segmented dial -->
+      <g class="circuit-lines">
+        <path d="M 50 12 L 50 20" />
+        <path d="M 88 50 L 80 50" />
+        <path d="M 50 88 L 50 80" />
+        <path d="M 12 50 L 20 50" />
+      </g>
+      <!-- Rotating arcs -->
+      <g class="arc-outer">
+        <path d="M 50 12 A 38 38 0 0 1 82 30" fill="none" stroke="rgba(60,145,180,0.85)" stroke-width="1.7" stroke-linecap="round"/>
+        <path d="M 50 88 A 38 38 0 0 0 18 58" fill="none" stroke="rgba(220,20,45,0.55)" stroke-width="1.2" stroke-linecap="round"/>
+      </g>
+      <g class="arc-inner">
+        <path d="M 50 22 A 28 28 0 0 1 73 35" fill="none" stroke="rgba(50,160,200,0.95)" stroke-width="1.4" stroke-linecap="round"/>
+        <path d="M 50 78 A 28 28 0 0 0 27 65" fill="none" stroke="rgba(170,15,30,0.5)" stroke-width="1.1" stroke-linecap="round"/>
+      </g>
+      
+      <!-- Orbiting dots -->
+      <circle class="dot-1" cx="50" cy="15" r="2" fill="url(#glow-gradient)"/>
+      <circle class="dot-2" cx="78" cy="50" r="2" fill="url(#gradient-reverse)"/>
+      <circle class="dot-3" cx="50" cy="85" r="2" fill="url(#glow-gradient)"/>
+      
+      <!-- Center core -->
+      <circle class="core" cx="50" cy="50" r="6" fill="url(#glow-gradient)" opacity="0.8"/>
+      <circle class="core-inner" cx="50" cy="50" r="3" fill="var(--blue)" opacity="0.6"/>
+      
+      <!-- Gradient defs -->
+      <defs>
+        <linearGradient id="glow-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#00334d" stop-opacity="0.9" />
+          <stop offset="40%" stop-color="#fcfcfc" stop-opacity="0.9" />
+          <stop offset="70%" stop-color="#8b0000" stop-opacity="0.8" />
+          <stop offset="100%" stop-color="#400000" stop-opacity="0.95" />
+        </linearGradient>
+        <linearGradient id="gradient-reverse" x1="100%" y1="100%" x2="0%" y2="0%">
+          <stop offset="0%" stop-color="#400000" stop-opacity="0.95" />
+          <stop offset="30%" stop-color="#8b0000" stop-opacity="0.9" />
+          <stop offset="70%" stop-color="#0b5ea6" stop-opacity="0.9" />
+          <stop offset="100%" stop-color="#00334d" stop-opacity="0.9" />
+        </linearGradient>
+      </defs>
+    </svg>
+  </button>
+  <div id="nav-items">
+    <div class="nav-item"><a href="#home"><div class="nav-dot"></div>Home</a></div>
+    <div class="nav-item"><a href="#about"><div class="nav-dot"></div>About</a></div>
+    <div class="nav-item"><a href="#skills"><div class="nav-dot"></div>Skills</a></div>
+    <div class="nav-item"><a href="#projects"><div class="nav-dot"></div>Projects</a></div>
+    <div class="nav-item"><a href="#passion"><div class="nav-dot"></div>Passion</a></div>
+    <div class="nav-item"><a href="#contact"><div class="nav-dot"></div>Contact</a></div>
+  </div>
+</nav>
+
+<!-- =================== HERO =================== -->
+<section id="home">
+  <canvas id="hero-canvas"></canvas>
+  <div id="parallax-layer"></div>
+  <div class="hero-content">
+    <div class="hero-avatar-wrap">
+      <img class="hero-avatar"
+        src="image.png"
+        alt="Profile Picture"
+      >
+      <div class="avatar-ring"></div>
+      <div class="avatar-ring2"></div>
+    </div>
+    <div class="hero-greeting">&lt; Hello, World! /&gt;</div>
+    <h1 class="hero-name">Nagaraj M</h1>
+    <div class="hero-title">Future AI Engineer &nbsp;·&nbsp; Researcher &nbsp;·&nbsp; Future Builder</div>
+    <div class="hero-tagline">
+      Crafting intelligent solutions with <span>AI</span> and data-driven innovation.
+Building the future through code, creativity, and cutting-edge technology.
+
+    </div>
+    <div class="hero-btns">
+      <a href="NAGARAJ RESUME.pdf" target="_blank" class="btn-primary" rel="noopener">
+        <span class="btn-text">Download Resume ↗</span>
+      </a>
+      <a href="#contact" class="btn-secondary">Get In Touch</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>SCROLL</span>
+  </div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- =================== ABOUT =================== -->
+<section id="about">
+  <div class="section-glow-top"></div>
+  <div class="section-wrap">
+    <div class="section-label fade-in">SYSTEM PROFILE</div>
+    <h2 class="section-title fade-in">About <span>Me</span></h2>
+    <div class="about-grid">
+      <div class="glass-card fade-in">
+        <div class="card-icon">🧠</div>
+        <div class="card-title">Who I Am</div>
+        <p class="card-text">
+          I am a B.Tech Artificial Intelligence and Data Science student aspiring to become an AI Engineer, with a strong passion for building intelligent and impactful solutions.
+Along with my technical skills, I actively take up leadership roles, serving as Vice President of the Rotaract Club of kathir college of engineering and Communication Coordinator at ADEPT Club, where I enhance my teamwork, communication, and management abilities.
+
+        </p>
+      </div>
+      <div class="glass-card fade-in">
+        <div class="card-icon">🚀</div>
+        <div class="card-title">What I Do</div>
+        <p class="card-text">
+          I develop AI-driven applications and continuously explore machine learning, data science, and cloud technologies to build scalable and intelligent systems.
+        I also design and develop visually appealing websites, combining creativity with technology to deliver engaging and user-friendly digital experiences.
+        </p>
+      </div>
+      <div class="glass-card fade-in">
+        <div class="card-icon">🌐</div>
+        <div class="card-title">My Background</div>
+        <p class="card-text">
+          I am currently pursuing B.Tech AI&DS, building a strong foundation in programming, data structures, and machine learning.
+I have gained practical experience through internships at SmartBridge (AWS Cloud), Boredom Tech LLP (AI-powered MVP application design), and Cognifyz (Data Science). Additionally, my leadership roles have helped me develop strong organizational, communication, and problem-solving skills.
+
+        </p>
+      </div>
+      <div class="glass-card fade-in">
+        <div class="card-icon">⚡</div>
+        <div class="card-title">My Philosophy</div>
+        <p class="card-text">
+          I believe technology should be intelligent, scalable, and user-centric. My goal is to build solutions that not only solve real-world problems but also create meaningful user experiences.
+I focus on continuous learning, innovation, and leadership to grow as a well-rounded AI Engineer who can contribute effectively to the future of technology.
+
+        </p>
+      </div>
+      <div class="glass-card about-highlight fade-in">
+        <div class="card-title">By The Numbers</div>
+        <div class="stats-row">
+          <div class="stat-item">
+            <div class="stat-num">3rd Year</div>
+            <div class="stat-label">Years in AI&DS</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">15+</div>
+            <div class="stat-label">Projects</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">3+</div>
+            <div class="stat-label">Internships</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">25+</div>
+            <div class="stat-label">technical competitions</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-glow-bottom"></div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- =================== SKILLS =================== -->
+<section id="skills">
+  <div class="section-glow-top"></div>
+  <div class="section-wrap">
+    <div class="section-label fade-in">CAPABILITIES</div>
+    <h2 class="section-title fade-in">Technical <span>Skills</span></h2>
+    <div class="skills-grid">
+      <!-- AI/ML -->
+      <div class="skill-category fade-in">
+        <div class="skill-cat-title">AI & ML</div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">Deep Learning</span><span class="skill-pct">75%</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar" data-width="75"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">NLP&LLMs</span><span class="skill-pct">70%</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar" data-width="70"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">Computer Vision</span><span class="skill-pct">70%</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar" data-width="70"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">Generative AI</span><span class="skill-pct">50%</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar" data-width="50"></div></div>
+        </div>
+        <div class="skill-icons-row">
+          <span class="skill-icon-chip">PyTorch</span>
+          <span class="skill-icon-chip">TensorFlow</span>
+          <span class="skill-icon-chip">HuggingFace</span>
+          <span class="skill-icon-chip">LangChain</span>
+        </div>
+      </div>
+      <!-- Python & Data -->
+      <div class="skill-category fade-in">
+        <div class="skill-cat-title">Python & Data</div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">Python</span><span class="skill-pct">65%</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar" data-width="65"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">Data Engineering</span><span class="skill-pct">82%</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar" data-width="82"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">Data Analysis</span><span class="skill-pct">88%</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar" data-width="88"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">Statistical Analysis</span><span class="skill-pct">65%</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar" data-width="65"></div></div>
+        </div>
+        <div class="skill-icons-row">
+          <span class="skill-icon-chip">Pandas</span>
+          <span class="skill-icon-chip">NumPy</span>
+          <span class="skill-icon-chip">Scikit-learn</span>
+          <span class="skill-icon-chip">Matplotlib</span>
+        </div>
+      </div>
+      <!-- Web & APIs -->
+      <div class="skill-category fade-in">
+        <div class="skill-cat-title">Web & APIs</div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">FastAPI / Flask</span><span class="skill-pct">68%</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar" data-width="68"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">React / Next.js</span><span class="skill-pct">65%</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar" data-width="65"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">REST / GraphQL</span><span class="skill-pct">62%</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar" data-width="62"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">AWS & Cloud</span><span class="skill-pct">75%</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar" data-width="75"></div></div>
+        </div>
+        <div class="skill-icons-row">
+          <span class="skill-icon-chip">AWS</span>
+          <span class="skill-icon-chip">GCP</span>
+          <span class="skill-icon-chip">Docker</span>
+          <span class="skill-icon-chip">CI/CD</span>
+        </div>
+      </div>
+      <!-- Tools -->
+      <div class="skill-category fade-in">
+        <div class="skill-cat-title">Tools & Research</div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">VSCode / Colab</span><span class="skill-pct">95%</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar" data-width="95"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">Git / GitHub</span><span class="skill-pct">75%</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar" data-width="75"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">Research & Writing</span><span class="skill-pct">65%</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar" data-width="65"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">Prompt Engineering</span><span class="skill-pct">90%</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar" data-width="90"></div></div>
+        </div>
+        <div class="skill-icons-row">
+          <span class="skill-icon-chip">Cursor</span>
+          <span class="skill-icon-chip">Weights & Biases</span>
+          <span class="skill-icon-chip">MLflow</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-glow-bottom"></div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- =================== PROJECTS =================== -->
+<section id="projects">
+  <div class="section-glow-top"></div>
+  <div class="section-wrap">
+    <div class="section-label fade-in">WORK</div>
+    <h2 class="section-title fade-in">Featured <span>Projects</span></h2>
+    <div class="projects-grid" id="projects-grid">
+
+      <div class="project-card fade-in" data-project="0">
+        <div class="project-top">
+          <span class="project-num">PROJECT_01</span>
+          <span class="project-tag">LLM</span>
+        </div>
+        <div class="project-body">
+          <div class="project-title">Local ChatPDF</div>
+          <p class="project-desc">Developed an offline ChatPDF system using local LLMs (Ollama) with a RAG pipeline for PDF-based question answering without internet or APIs.</p>
+          <div class="project-tech">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Ollama</span>
+            <span class="tech-tag">Phi-3</span>
+            <span class="tech-tag">RAG</span>
+
+          </div>
+          <div class="project-cta">VIEW PROJECT <span class="cta-arrow">→</span></div>
+        </div>
+      </div>
+
+      <div class="project-card fade-in" data-project="1">
+        <div class="project-top">
+          <span class="project-num">PROJECT_02</span>
+          <span class="project-tag">AWS</span>
+        </div>
+        <div class="project-body">
+          <div class="project-title">Travel Booking Assistant </div>
+          <p class="project-desc">Cloud-based travel booking platform built with Flask and AWS that enables real-time search, booking, and notifications for buses, trains, flights, and hotels.</p>
+          <div class="project-tech">
+            <span class="tech-tag">Flask</span>
+            <span class="tech-tag">AWS </span>
+            <span class="tech-tag">EC2</span>
+            <span class="tech-tag">SNS</span>
+          </div>
+          <div class="project-cta">VIEW PROJECT <span class="cta-arrow">→</span></div>
+        </div>
+      </div>
+
+      <div class="project-card fade-in" data-project="2">
+        <div class="project-top">
+          <span class="project-num">PROJECT_03</span>
+          <span class="project-tag">FULL-STACK</span>
+        </div>
+        <div class="project-body">
+          <div class="project-title">Expense Tracker</div>
+          <p class="project-desc">A full-stack expense tracking application that manages, analyzes, and visualizes user spending using FastAPI, Streamlit, and database integration.</p>  
+            <span class="tech-tag">FastAPI</span>
+            <span class="tech-tag">Streamlit</span>
+            <span class="tech-tag">python</span>
+            <span class="tech-tag">PostgreSQL</span>
+          </div>
+          <div class="project-cta">VIEW PROJECT <span class="cta-arrow">→</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="section-glow-bottom"></div>
+</section>
+
+<!-- PROJECT MODAL -->
+<div id="modal-overlay">
+  <div class="modal-box">
+    <button class="modal-close" id="modal-close">✕</button>
+    <div class="modal-tag" id="modal-tag"></div>
+    <h3 class="modal-title" id="modal-title"></h3>
+    <p class="modal-desc" id="modal-desc"></p>
+    <div class="modal-features">
+      <h4>KEY FEATURES</h4>
+      <ul id="modal-features"></ul>
+    </div>
+    <a id="modal-link" href="#" target="_blank" rel="noopener" class="modal-btn">
+      View on GitHub ↗
+    </a>
+  </div>
+</div>
+
+<div class="glow-divider"></div>
+
+<!-- =================== PASSION =================== -->
+<section id="passion">
+  <div class="section-glow-top"></div>
+  <div class="section-wrap">
+    <div class="section-label fade-in">INTERESTS</div>
+    <h2 class="section-title fade-in">What Drives <span>Me</span></h2>
+    <div class="passion-grid">
+      <div class="passion-card fade-in">
+        <span class="passion-emoji">🤖</span>
+        <div class="passion-title">Artificial Intelligence</div>
+        <p class="passion-text">Fascinated by how neural networks learn representations and how we can build systems that reason, plan, and generalize.</p>
+      </div>
+      <div class="passion-card fade-in">
+        <span class="passion-emoji">🔬</span>
+        <div class="passion-title">Research & Innovation</div>
+        <p class="passion-text">Reading papers, reproducing results, and pushing the frontier of what AI can do — not just applying existing tools.</p>
+      </div>
+      <div class="passion-card fade-in">
+        <span class="passion-emoji">🌌</span>
+        <div class="passion-title">Science & Cosmos</div>
+        <p class="passion-text">Physics, cosmology, and the intersection of computation with our understanding of the universe inspire my approach to problem-solving.</p>
+      </div>
+      <div class="passion-card fade-in">
+        <span class="passion-emoji">🎮</span>
+        <div class="passion-title">Game AI & Simulation</div>
+        <p class="passion-text">Building game-playing agents and simulated environments as a testing ground for intelligent behavior and emergent complexity.</p>
+      </div>
+      <div class="passion-card fade-in">
+        <span class="passion-emoji">🎤</span>
+        <div class="passion-title">Public Speaking & Teaching</div>
+        <p class="passion-text">Confidently sharing ideas and engaging with audiences.
+Continuously improving communication and presentation skills.</p>
+      </div>
+      <div class="passion-card fade-in">
+        <span class="passion-emoji">📚</span>
+        <div class="passion-title">Continuous Learning</div>
+        <p class="passion-text">The AI field evolves daily. I'm committed to constant upskilling, open-source contribution, and knowledge sharing.</p>
+      </div>
+    </div>
+  </div>
+  <div class="section-glow-bottom"></div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- =================== CONTACT =================== -->
+<section id="contact">
+  <div class="section-glow-top"></div>
+  <div class="section-wrap">
+    <div class="section-label fade-in">CONNECT</div>
+    <h2 class="section-title fade-in">Get In <span>Touch</span></h2>
+    <div class="contact-wrap">
+      <div class="contact-info fade-in">
+        <p class="contact-tagline">
+          Open to collaborations, research opportunities, and interesting projects.
+          Drop a message and let's build something extraordinary.
+        </p>
+        <div class="contact-links">
+          <a href="https://www.linkedin.com/in/rtr-nagaraj-1928b2224" target="_blank" rel="noopener" class="contact-link">
+            <span class="contact-link-icon">💼</span>
+            linkedin
+          </a>
+          <a href="mailto:manivasgam15@gmail.com" class="contact-link">
+            <span class="contact-link-icon">✉️</span>
+            Gmail
+          </a>
+          <a href="https://www.instagram.com/crypt_chaco_01?igsh=NWZ1M3lyYmQ1ZDZi" target="_blank" rel="noopener" class="contact-link">
+            <span class="contact-link-icon">📸</span>
+            Instagram
+          </a>
+          <a href="https://github.com/nagarajrtr2026" target="_blank" rel="noopener" class="contact-link">
+            <span class="contact-link-icon">💻</span>
+            github
+          </a>
+        </div>
+      </div>
+      <form class="contact-form fade-in" onsubmit="handleSubmit(event)">
+        <div class="form-group">
+          <input type="text" class="form-input" id="name" placeholder="Name" required>
+          <label class="form-label" for="name">your name </label>
+        </div>
+        <div class="form-group">
+          <input type="email" class="form-input" id="email" placeholder="Email" required>
+          <label class="form-label" for="email">Email Address</label>
+        </div>
+        <div class="form-group">
+          <textarea class="form-textarea" id="message" placeholder="Message" required></textarea>
+          <label class="form-label" for="message">Your Message</label>
+        </div>
+        <button type="submit" class="form-submit">
+          <span class="btn-text">Send Message →</span>
+        </button>
+      </form>
+    </div>
+  </div>
+  <div class="section-glow-bottom"></div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">ALEX NOVA // AI DEVELOPER</div>
+  <div class="footer-socials">
+    <a href="https://www.linkedin.com/in/rtr-nagaraj-1928b2224" target="_blank" rel="noopener" class="social-btn" title="LinkedIn">💼</a>
+    <a href="mailto:manivasgam15@gmail.com" class="social-btn" title="Email">✉️</a>
+    <a href="https://www.instagram.com/crypt_chaco_01?igsh=NWZ1M3lyYmQ1ZDZi" target="_blank" rel="noopener" class="social-btn" title="Instagram">📸</a>
+    <a href="https://github.com/nagarajrtr2026" target="_blank" rel="noopener" class="social-btn" title="GitHub">💻</a>
+  </div>
+  <div class="footer-copy">© 2026 Made By Rtr. Nagaraj </div>
+</footer>
+
+<script>
+/* ===== DATA ===== */
+const PROJECTS = [
+  {
+    tag: "LLM",
+    title: "Local ChatPDF",
+    desc: "Used a Retrieval-Augmented Generation (RAG) approach to answer questions from PDF documents using a local LLM.",
+    features: [
+      "Built a complete offline AI system using FastAPI and web-based UI (HTML/CSS/JS)",
+      "Extracted and processed PDF content with chunking and embeddings (Sentence-Transformers)",
+      "Implemented FAISS vector database for fast and relevant context retrieval",
+      "Integrated Ollama local LLM (phi/tinyllama) for secure, API-free answer generation"
+    ],
+    link: "https://github.com/nagaraj2331P/local-chatpdf"
+  },
+  {
+    tag: "AWS",
+    title: "Travel Booking Assistant",
+    desc: "Developed a cloud-based travel booking platform using Flask and AWS services (EC2, DynamoDB, SNS) for real-time search and booking.",
+    features: [
+      "Real-time travel search and booking for buses, trains, flights, and hotels",
+      "Cloud-based data storage using AWS DynamoDB for scalable performance",
+      "Automated email notifications using AWS SNS for booking confirmations",
+      "Deployed on AWS EC2 ensuring reliable and accessible web application hosting"
+    ],
+    link: "https://github.com/nagarajrtr2026/TravelGo"
+  },
+  {
+    tag: "FULL-STACK",
+    title: "Expense Tracker",
+    desc: "An end-to-end full-stack expense management system with RESTful APIs, persistent storage, real-time analytics, and interactive visualization, enabling efficient tracking, categorization, and data-driven financial insights.",
+    features: [
+      "Full-Stack Architecture: Built with FastAPI backend and Streamlit frontend for seamless user interaction and scalable API design.",
+      "Expense Management System: Supports adding, deleting, filtering, and categorizing expenses with persistent storage (JSON/Database).",
+      "Data Analytics & Visualization: Provides real-time insights with total spending, category-wise analysis, and interactive charts.",
+      "RESTful API Integration: Exposes structured endpoints for expense operations, enabling easy integration with external applications."
+    ],
+    link: "https://github.com/nagarajrtr2026/expensetracker"
+  }
+];
+
+/* ===== LOADER ===== */
+let pct = 0;
+const loaderInterval = setInterval(() => {
+  pct += Math.random() * 15;
+  if (pct >= 100) { pct = 100; clearInterval(loaderInterval); setTimeout(hideLoader, 400); }
+  document.getElementById('loader-percent').textContent = Math.floor(pct) + '%';
+}, 120);
+function hideLoader() {
+  document.getElementById('loader').classList.add('hidden');
+  startCanvas();
+}
+
+/* ===== CURSOR ===== */
+const co = document.getElementById('cursor-outer');
+const ci = document.getElementById('cursor-inner');
+let mx = 0, my = 0, ox = 0, oy = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+function animCursor() {
+  ox += (mx - ox) * 0.18; oy += (my - oy) * 0.18;
+  co.style.transform = `translate(${ox}px, ${oy}px)`;
+  ci.style.transform = `translate(${mx}px, ${my}px)`;
+  requestAnimationFrame(animCursor);
+}
+animCursor();
+document.querySelectorAll('a,button,.project-card,.glass-card,.passion-card').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+});
+
+/* ===== CANVAS HERO ===== */
+let canvas, ctx, stars = [], planets = [], particles = [], neuralNodes = [];
+function startCanvas() {
+  canvas = document.getElementById('hero-canvas');
+  ctx = canvas.getContext('2d');
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+  initScene(); renderFrame();
+}
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  initScene();
+}
+function initScene() {
+  const W = canvas.width, H = canvas.height;
+  // Stars
+  stars = Array.from({length: 200}, () => ({
+    x: Math.random()*W, y: Math.random()*H,
+    r: Math.random()*1.5+0.2,
+    a: Math.random(), da: (Math.random()-0.5)*0.005,
+    vx: (Math.random()-0.5)*0.08, vy: (Math.random()-0.5)*0.08
+  }));
+  // Planets
+  planets = [
+    {x:W*0.8, y:H*0.25, r:55, color:'#0033ff', glow:'#0066ff', vx:-0.04, vy:0.02, rings:true},
+    {x:W*0.15, y:H*0.7, r:35, color:'#cc2200', glow:'#ff4422', vx:0.05, vy:-0.025, rings:false},
+    {x:W*0.55, y:H*0.85, r:20, color:'#00aacc', glow:'#00ccff', vx:-0.03, vy:0.04, rings:false},
+  ];
+  // Neural nodes
+  neuralNodes = Array.from({length: 18}, () => ({
+    x: Math.random()*W, y: Math.random()*H,
+    r: Math.random()*3+2,
+    vx: (Math.random()-0.5)*0.2, vy: (Math.random()-0.5)*0.2,
+    pulse: Math.random()*Math.PI*2
+  }));
+  // Particles
+  particles = Array.from({length: 80}, () => ({
+    x: Math.random()*W, y: Math.random()*H,
+    r: Math.random()*2,
+    a: Math.random(),
+    vx: (Math.random()-0.5)*0.3, vy: (Math.random()-0.5)*0.3
+  }));
+}
+
+let t = 0, mousePX = 0, mousePY = 0;
+document.addEventListener('mousemove', e => {
+  mousePX = (e.clientX / window.innerWidth - 0.5) * 30;
+  mousePY = (e.clientY / window.innerHeight - 0.5) * 20;
+});
+
+function renderFrame() {
+  requestAnimationFrame(renderFrame);
+  const W = canvas.width, H = canvas.height;
+  t += 0.005;
+  ctx.clearRect(0,0,W,H);
+
+  // BG gradient
+  const bg = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, W*0.8);
+  bg.addColorStop(0, 'rgba(7,13,30,0.98)');
+  bg.addColorStop(1, 'rgba(3,6,15,1)');
+  ctx.fillStyle = bg; ctx.fillRect(0,0,W,H);
+
+  // Stars
+  stars.forEach(s => {
+    s.x += s.vx; s.y += s.vy;
+    if(s.x<0) s.x=W; if(s.x>W) s.x=0;
+    if(s.y<0) s.y=H; if(s.y>H) s.y=0;
+    s.a += s.da; if(s.a>1||s.a<0) s.da*=-1;
+    ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+    ctx.fillStyle = `rgba(180,220,255,${s.a*0.8})`; ctx.fill();
+  });
+
+  // Planets
+  planets.forEach(p => {
+    p.x += p.vx; p.y += p.vy;
+    if(p.x < -100) p.x = W+100; if(p.x > W+100) p.x = -100;
+    if(p.y < -100) p.y = H+100; if(p.y > H+100) p.y = -100;
+    const px = p.x + mousePX*0.3, py = p.y + mousePY*0.3;
+    // Glow
+    const gl = ctx.createRadialGradient(px,py,p.r*0.3, px,py,p.r*2.5);
+    gl.addColorStop(0, p.glow+'44'); gl.addColorStop(1, 'transparent');
+    ctx.beginPath(); ctx.arc(px,py,p.r*2.5,0,Math.PI*2);
+    ctx.fillStyle=gl; ctx.fill();
+    // Planet body
+    const grad = ctx.createRadialGradient(px-p.r*0.3, py-p.r*0.3, p.r*0.1, px, py, p.r);
+    grad.addColorStop(0, p.glow); grad.addColorStop(1, p.color);
+    ctx.beginPath(); ctx.arc(px,py,p.r,0,Math.PI*2);
+    ctx.fillStyle=grad; ctx.fill();
+    // Rings
+    if(p.rings) {
+      ctx.save(); ctx.translate(px,py); ctx.scale(1,0.3);
+      ctx.beginPath(); ctx.arc(0,0,p.r*1.8,0,Math.PI*2);
+      ctx.strokeStyle='rgba(100,150,255,0.25)'; ctx.lineWidth=6; ctx.stroke();
+      ctx.beginPath(); ctx.arc(0,0,p.r*2.1,0,Math.PI*2);
+      ctx.strokeStyle='rgba(100,150,255,0.12)'; ctx.lineWidth=3; ctx.stroke();
+      ctx.restore();
+    }
+  });
+
+  // Neural network
+  neuralNodes.forEach(n => {
+    n.x += n.vx; n.y += n.vy;
+    if(n.x<0||n.x>W) n.vx*=-1;
+    if(n.y<0||n.y>H) n.vy*=-1;
+    n.pulse += 0.03;
+  });
+  neuralNodes.forEach((a, i) => {
+    neuralNodes.forEach((b, j) => {
+      if(j<=i) return;
+      const dist = Math.hypot(a.x-b.x, a.y-b.y);
+      if(dist < 200) {
+        const alpha = (1-dist/200)*0.15;
+        ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y);
+        ctx.strokeStyle=`rgba(0,200,255,${alpha})`; ctx.lineWidth=0.8; ctx.stroke();
+      }
+    });
+    const glowA = 0.5 + 0.5*Math.sin(a.pulse);
+    ctx.beginPath(); ctx.arc(a.x,a.y,a.r+glowA*2,0,Math.PI*2);
+    ctx.fillStyle=`rgba(0,200,255,${0.2+glowA*0.3})`; ctx.fill();
+    ctx.beginPath(); ctx.arc(a.x,a.y,a.r,0,Math.PI*2);
+    ctx.fillStyle='rgba(0,200,255,0.7)'; ctx.fill();
+  });
+
+  // Particles
+  particles.forEach(p => {
+    p.x += p.vx; p.y += p.vy;
+    if(p.x<0) p.x=W; if(p.x>W) p.x=0;
+    if(p.y<0) p.y=H; if(p.y>H) p.y=0;
+    const which = p.x/W > 0.5 ? '255,34,66' : '0,200,255';
+    ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(${which},${p.a*0.5})`; ctx.fill();
+  });
+}
+
+/* ===== NAV WHEEL ===== */
+const navToggle = document.getElementById('nav-toggle');
+const navItems = document.getElementById('nav-items');
+navToggle.addEventListener('click', () => {
+  navToggle.classList.toggle('open');
+  navItems.classList.toggle('open');
+});
+navItems.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    navToggle.classList.remove('open');
+    navItems.classList.remove('open');
+  });
+});
+document.addEventListener('click', e => {
+  if(!document.getElementById('nav-wheel').contains(e.target)) {
+    navToggle.classList.remove('open'); navItems.classList.remove('open');
+  }
+});
+
+/* ===== SCROLL ANIMATIONS ===== */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.15 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Skill bars
+const barObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      e.target.querySelectorAll('.skill-bar').forEach(bar => {
+        bar.style.width = bar.dataset.width + '%';
+      });
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.skill-category').forEach(el => barObserver.observe(el));
+
+/* ===== PROJECTS MODAL ===== */
+const overlay = document.getElementById('modal-overlay');
+document.querySelectorAll('.project-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const idx = parseInt(card.dataset.project);
+    const p = PROJECTS[idx];
+    document.getElementById('modal-tag').textContent = p.tag;
+    document.getElementById('modal-title').textContent = p.title;
+    document.getElementById('modal-desc').textContent = p.desc;
+    const ul = document.getElementById('modal-features');
+    ul.innerHTML = p.features.map(f => `<li>${f}</li>`).join('');
+    document.getElementById('modal-link').href = p.link;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+});
+document.getElementById('modal-close').addEventListener('click', closeModal);
+overlay.addEventListener('click', e => { if(e.target===overlay) closeModal(); });
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+function closeModal() {
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ===== SOUND TOGGLE ===== */
+const bgAudio = document.getElementById('bg-audio');
+const soundToggle = document.getElementById('sound-toggle');
+let soundEnabled = true;
+
+soundToggle.addEventListener('click', () => {
+  soundEnabled = !soundEnabled;
+  soundToggle.textContent = soundEnabled ? '🔊' : '🔇';
+  if (!soundEnabled) {
+    bgAudio.pause();
+  }
+});
+
+document.addEventListener('mouseover', (e) => {
+  if (!soundEnabled) return;
+  const button = e.target.closest('button');
+  if (button && button !== soundToggle) {
+    bgAudio.currentTime = 0;
+    bgAudio.play().catch(err => console.log('Audio play failed:', err));
+  }
+});
+
+document.addEventListener('mouseout', (e) => {
+  const button = e.target.closest('button');
+  if (button && button !== soundToggle) {
+    bgAudio.pause();
+  }
+});
+
+/* ===== FORM ===== */
+async function handleSubmit(e) {
+  e.preventDefault();
+
+  const btn = e.target.querySelector('.form-submit');
+  const span = btn.querySelector('span');
+  const orig = span.textContent;
+
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const message = document.getElementById('message').value.trim();
+
+  if (!name || !email || !message) {
+    alert('Please fill in all fields.');
+    return;
+  }
+
+  btn.style.pointerEvents = 'none';
+  span.textContent = 'Sending...';
+
+  try {
+    const response = await fetch('http://localhost:3000/send', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ name, email, message })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error('Backend error:', data);
+      alert('Failed to send message: ' + (data.error || response.statusText));
+      span.textContent = orig;
+      btn.style.pointerEvents = 'all';
+      return;
+    }
+
+    alert('Message sent successfully!');
+    span.textContent = '✓ Message Sent!';
+    e.target.reset();
+  } catch (err) {
+    console.error('Send error:', err);
+    alert('An error occurred while sending the message. Please try again.');
+    span.textContent = orig;
+  } finally {
+    setTimeout(() => {
+      span.textContent = orig;
+      btn.style.pointerEvents = 'all';
+    }, 1800);
+  }
+}
+
+/* ===== PARALLAX ===== */
+document.addEventListener('mousemove', e => {
+  const px = (e.clientX/window.innerWidth-0.5)*20;
+  const py = (e.clientY/window.innerHeight-0.5)*20;
+  document.querySelector('.hero-content').style.transform = `translate(${px*0.3}px,${py*0.3}px)`;
+});
+
+// Optional: form submission is handled by handleSubmit(); no automatic test POST on load.
+</script>
+</body>
+</html>
