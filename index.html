@@ -492,7 +492,12 @@ Continuously improving communication and presentation skills.</p>
   </div>
   <div class="section-glow-bottom"></div>
 </section>
-
+<div id="popup" class="popup">
+  <div class="popup-box">
+    <div class="popup-icon">🚀</div>
+    <div class="popup-text" id="popup-text">Message sent!</div>
+  </div>
+</div>
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">ALEX NOVA // AI DEVELOPER</div>
@@ -817,7 +822,7 @@ async function handleSubmit(e) {
     return;
   }
 
-  btn.style.pointerEvents = 'none';
+  btn.classList.add("loading");
   span.textContent = 'Sending...';
 
   try {
@@ -835,11 +840,11 @@ async function handleSubmit(e) {
     const data = await response.json();
 
     if (response.ok) {
-      alert('Message sent successfully 🔥');
+      showPopup("Message sent successfully 🔥", true);
       span.textContent = '✓ Sent!';
       e.target.reset();
     } else {
-      alert('Server waking up... please try again ⚡');
+      showPopup("Server waking up... try again ⚡", false);
     }
 
   } catch (err) {
@@ -849,10 +854,28 @@ async function handleSubmit(e) {
   } finally {
     setTimeout(() => {
       span.textContent = orig;
-      btn.style.pointerEvents = 'all';
+      btn.classList.remove("loading");
     }, 2000);
   }
 }
+function showPopup(message, success = true) {
+  const popup = document.getElementById("popup");
+  const text = document.getElementById("popup-text");
+
+  text.textContent = message;
+
+  popup.style.borderColor = success ? "#00ffcc" : "#ff004c";
+  popup.style.boxShadow = success
+    ? "0 0 20px rgba(0,255,200,0.4)"
+    : "0 0 20px rgba(255,0,80,0.4)";
+
+  popup.classList.add("show");
+
+  setTimeout(() => {
+    popup.classList.remove("show");
+  }, 2500);
+}
+    
 /* ===== PARALLAX ===== */
 document.addEventListener('mousemove', e => {
   const px = (e.clientX/window.innerWidth-0.5)*20;
