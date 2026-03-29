@@ -800,60 +800,134 @@ document.addEventListener('mouseout', (e) => {
   }
 });
 
-/* ===== FORM ===== */
+/* ===== FORM SUBMISSION ===== */
 async function handleSubmit(e) {
   e.preventDefault();
 
-  const btn = e.target.querySelector('.form-submit');
+  const form = e.target;
+  const btn = form.querySelector('.form-submit');
   const span = btn.querySelector('span');
-  const orig = span.textContent;
+  const originalText = span.textContent;
 
+  // Get form values
   const name = document.getElementById('name').value.trim();
   const email = document.getElementById('email').value.trim();
   const message = document.getElementById('message').value.trim();
 
+  // Validate inputs
   if (!name || !email || !message) {
-    alert('Please fill in all fields.');
+    showFormFeedback('Please fill in all fields.', 'error');
     return;
   }
 
-  btn.style.pointerEvents = 'none';
-  span.textContent = 'Sending...';
+  // Email validation
+  if (!isValidEmail(email)) {
+    showFormFeedback('Please enter a valid email address.', 'error');
+    return;
+  }
+
+  // Disable button and show loading state
+  btn.disabled = true;
+  btn.classList.add('loading');
+  span.textContent = '⏳ Sending...';
 
   try {
+    // Wait 1.5 seconds to allow Render server to wake up
+    await new Promise(resolve => setTimeout(resolve, 1500));
+
+    // Make fetch request
     const response = await fetch('https://myportfolio-okpt.onrender.com/send', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
       },
-      body: JSON.stringify({ name, email, message })
+      body: JSON.stringify({ name, email, message }),
+      timeout: 10000 // 10 second timeout
     });
 
-    const data = await response.json();
-
-    if (!response.ok) {
-      console.error('Backend error:', data);
-      alert('Failed to send message: ' + (data.error || response.statusText));
-      span.textContent = orig;
-      btn.style.pointerEvents = 'all';
-      return;
+    // Parse response safely
+    let data;
+    try {
+      data = await response.json();
+    } catch (err) {
+      console.error('JSON parse error:', err);
+      data = { error: 'Invalid response from server' };
     }
 
-    alert('Message sent successfully!');
-    span.textContent = '✓ Message Sent!';
-    e.target.reset();
+    // Handle response
+    if (response.ok) {
+      // Success case
+      showFormFeedback('✓ Message sent successfully!', 'success');
+      span.textContent = '✓ Sent!';
+      form.reset();
+      console.log('Form submitted successfully:', data);
+    } else {
+      // Server error but connection worked
+      console.error('Backend error:', response.status, data);
+      const errorMsg = data?.error || 'Failed to send message. Please try again.';
+      showFormFeedback(errorMsg, 'error');
+      span.textContent = originalText;
+    }
   } catch (err) {
-    console.error('Send error:', err);
-    alert('An error occurred while sending the message. Please try again.');
-    span.textContent = orig;
+    // Network errors or timeout
+    console.error('Network/fetch error:', err.message);
+
+    if (err.name === 'AbortError') {
+      showFormFeedback('Request timeout. The server may be sleeping. Please try again.', 'error');
+    } else {
+      showFormFeedback('Network error. Please check your connection and try again.', 'error');
+    }
+
+    span.textContent = originalText;
   } finally {
+    // Re-enable button after 2 seconds
     setTimeout(() => {
-      span.textContent = orig;
-      btn.style.pointerEvents = 'all';
-    }, 1800);
+      btn.disabled = false;
+      btn.classList.remove('loading');
+      span.textContent = originalText;
+    }, 2000);
   }
 }
 
+/* ===== HELPER FUNCTIONS ===== */
+
+// Simple email validation
+function isValidEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
+// Show smooth UI feedback (replaces alert)
+function showFormFeedback(message, type = 'info') {
+  // Remove existing feedback if any
+  const existingFeedback = document.querySelector('.form-feedback');
+  if (existingFeedback) {
+    existingFeedback.remove();
+  }
+
+  // Create feedback element
+  const feedback = document.createElement('div');
+  feedback.className = `form-feedback form-feedback--${type}`;
+  feedback.textContent = message;
+  feedback.setAttribute('role', 'alert');
+
+  // Insert after form
+  const form = document.querySelector('.contact-form');
+  form.parentNode.insertBefore(feedback, form.nextSibling);
+
+  // Animate in
+  requestAnimationFrame(() => {
+    feedback.classList.add('visible');
+  });
+
+  // Auto-remove after 5 seconds for non-error, 4 seconds for error
+  const duration = type === 'error' ? 4000 : 5000;
+  setTimeout(() => {
+    feedback.classList.remove('visible');
+    setTimeout(() => feedback.remove(), 300);
+  }, duration);
+}
 /* ===== PARALLAX ===== */
 document.addEventListener('mousemove', e => {
   const px = (e.clientX/window.innerWidth-0.5)*20;
