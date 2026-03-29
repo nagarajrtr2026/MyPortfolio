@@ -10,6 +10,11 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
+/* ✅ ROOT ROUTE FIX (IMPORTANT) */
+app.get('/', (req, res) => {
+  res.send('Backend is running 🚀');
+});
+
 // Nodemailer transporter
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -28,18 +33,22 @@ app.post('/send', async (req, res) => {
   }
 
   const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: 'manivasgam15@gmail.com',
-    subject: 'New Contact Form Message',
+    from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
+    to: process.env.EMAIL_USER,
+
+    /* 🔥 IMPORTANT (REPLY FIX) */
+    replyTo: email,
+
+    subject: `New Message from ${name}`,
     text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`
   };
 
   try {
     await transporter.sendMail(mailOptions);
-    res.status(200).json({ message: 'Email sent successfully' });
+    res.status(200).json({ success: true, message: 'Email sent successfully' });
   } catch (error) {
     console.error('Error sending email:', error);
-    res.status(500).json({ error: 'Failed to send email' });
+    res.status(500).json({ success: false, error: 'Failed to send email' });
   }
 });
 
