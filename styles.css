@@ -3,6 +3,10 @@ html, body {
   padding: 0;
   overflow-x: hidden; /* 🔥 gap remove */
 }
+body {
+  position: relative;
+  overflow-x: hidden;
+}
 /* ===== CSS VARIABLES ===== */
 :root {
   --red: #ff2242;
