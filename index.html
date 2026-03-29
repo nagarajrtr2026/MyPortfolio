@@ -821,7 +821,7 @@ async function handleSubmit(e) {
   span.textContent = 'Sending...';
 
   try {
-    const response = await fetch('/api/send', {
+    const response = await fetch('http://localhost:3001/send', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
