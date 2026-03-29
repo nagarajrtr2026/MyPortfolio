@@ -10,6 +10,10 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
+app.get('/', (req, res) => {
+  res.send('Server is running 🔥');
+});
+
 /* ✅ ROOT ROUTE FIX (IMPORTANT) */
 app.get('/', (req, res) => {
   res.send('Backend is running 🚀');
