@@ -804,58 +804,48 @@ footer {
   .modal-box { padding: 30px 20px; }
   #nav-wheel { top: 20px; left: 20px; }
 }
-/* ===== FORM FEEDBACK ===== */
-.form-feedback {
-  margin-top: 1.5rem;
-  padding: 1rem 1.25rem;
-  border-radius: 8px;
-  font-family: var(--font-mono, 'Share Tech Mono', monospace);
-  font-size: 0.95rem;
-  text-align: center;
-  backdrop-filter: blur(10px);
-  opacity: 0;
-  transform: translateY(-10px);
-  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-  pointer-events: none;
+.popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(10,15,30,0.95);
+  border: 1px solid rgba(0,200,255,0.4);
+  box-shadow: 0 0 20px rgba(0,200,255,0.3);
+  padding: 15px 25px;
+  border-radius: 12px;
+  transform: translateX(150%);
+  transition: all 0.4s ease;
+  z-index: 9999;
 }
 
-.form-feedback.visible {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
+.popup.show {
+  transform: translateX(0);
 }
 
-.form-feedback--success {
-  background: linear-gradient(135deg, rgba(0, 200, 100, 0.15), rgba(0, 255, 100, 0.1));
-  border: 1px solid rgba(0, 200, 100, 0.3);
-  color: #00ff88;
-  box-shadow: 0 0 20px rgba(0, 200, 100, 0.2);
+.popup-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #00c8ff;
+  font-family: 'Orbitron', sans-serif;
 }
 
-.form-feedback--error {
-  background: linear-gradient(135deg, rgba(255, 50, 50, 0.15), rgba(255, 100, 100, 0.1));
-  border: 1px solid rgba(255, 50, 50, 0.3);
-  color: #ff6b6b;
-  box-shadow: 0 0 20px rgba(255, 50, 50, 0.2);
+.popup-icon {
+  font-size: 20px;
+  animation: pop 0.4s ease;
 }
 
-.form-feedback--info {
-  background: linear-gradient(135deg, rgba(0, 150, 200, 0.15), rgba(0, 200, 255, 0.1));
-  border: 1px solid rgba(0, 150, 200, 0.3);
-  color: #00d4ff;
-  box-shadow: 0 0 20px rgba(0, 150, 200, 0.2);
+@keyframes pop {
+  0% { transform: scale(0); }
+  100% { transform: scale(1); }
 }
-
-/* Loading state for button */
 .form-submit.loading {
-  opacity: 0.8;
-}
-
-.form-submit.loading .btn-text {
-  animation: pulse 1.5s ease-in-out infinite;
+  background: linear-gradient(90deg, #ff0033, #ff6600);
+  animation: pulse 1s infinite;
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
+  0% { box-shadow: 0 0 10px rgba(255,0,50,0.5); }
+  50% { box-shadow: 0 0 25px rgba(255,0,50,1); }
+  100% { box-shadow: 0 0 10px rgba(255,0,50,0.5); }
 }
